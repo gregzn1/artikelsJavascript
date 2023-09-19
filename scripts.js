@@ -59,21 +59,26 @@ function showMatchedWords(){
 }
 
 function showMatchedPriceProducts(){
-    const result2 = arrArtikelen.filter((artikel) => (artikel.verkoopPrijs >= number1 && artikel.verkoopPrijs <= number2));
 
-    result2.forEach(e => {
-        console.log(`het artikel ${e.artikelNaam} met zijn verkoopprijs €${e.verkoopPrijs} zit tussen de getallen ${number1} en ${number2}`);
-    });
+    
+    // const result2 = arrArtikelen.filter((artikel) => (artikel.verkoopPrijs >= number1 && artikel.verkoopPrijs <= number2));
+
+    // result2.forEach(e => {
+
+
+    //     console.log(`het artikel ${e.artikelNaam} met zijn verkoopprijs €${e.verkoopPrijs} zit tussen de getallen ${number1} en ${number2}`);
+    // });
 }
 
 function showAveragePrice(){
-    const arrPrices = arrArtikelen.filter((artikel) => (artikel.verkoopPrijs));
-    console.log(arrPrices)
-    
-    //Tel het aantal producten aan de hand van de keys
-    amountProducts = Object.keys(arrArtikelen).length;
-    //currentvalue is het object dus currentValue.verkoopPrijs is de verkoopprijs
-    totalPrice = arrArtikelen.reduce((accumulator, currentValue) => accumulator + currentValue.verkoopPrijs,totalPrice);
+
+    //Maam nieuwe array met alleen prices
+    const arrPrices = arrArtikelen.map(({ verkoopPrijs}) => (verkoopPrijs));
+
+    //Tel aantal prices
+    amountProducts = arrPrices.length;
+    //bereken volledig prijs
+    totalPrice = arrPrices.reduce((accumulator, currentValue) => accumulator + currentValue,0);
 
     console.log('De gemiddelde verkoopprijs van de '+amountProducts+ ' artikelen bedraagt: '+ (totalPrice/amountProducts));
 }
