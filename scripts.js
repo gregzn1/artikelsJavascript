@@ -27,7 +27,6 @@ let amountProducts            = 0;
 while(artikelNaam != 'stop') {
     artikelNaam = prompt('wat is de artikel naam?');
     if(artikelNaam != 'stop'){
-        0
         aankoopPrijs = Number(prompt('hoeveel bedraagt de aankoopprijs?'));
         verkoopPrijs = Number(prompt('hoeveel bedraagt de verkoopprijs?'));
 
@@ -42,6 +41,7 @@ while(artikelNaam != 'stop') {
 inputWoord = prompt("Geef een woord in.");
 showMatchedWords(arrArtikelen);
 
+
 let number1 = Number(prompt('geef een getal in.'));
 let number2 = Number(prompt('geef een tweede getal in.'));
 
@@ -50,26 +50,30 @@ let number2 = Number(prompt('geef een tweede getal in.'));
 showAveragePrice();
 
 function showMatchedWords(){
-    arrArtikelen.forEach(e => {
-        if(e.artikelNaam.includes(inputWoord)){
-            console.log(`${e.artikelNaam} heeft het woord ${inputWoord} in zijn artikelnaam`);
-        }
+
+    const result = arrArtikelen.filter((word) => word.artikelNaam.includes(inputWoord));
+
+    result.forEach(e => {
+        console.log(`${e.artikelNaam} heeft het woord ${inputWoord} in zijn artikelnaam`);
     });
 }
 
 function showMatchedPriceProducts(){
-    arrArtikelen.forEach(e => {
-        if(e.verkoopPrijs >= number1 && e.verkoopPrijs <= number2){
-            console.log(`het artikel ${e.artikelNaam} met zijn verkoopprijs €${e.verkoopPrijs} zit tussen de getallen ${number1} en ${number2}`);
-        }
+    const result2 = arrArtikelen.filter((artikel) => (artikel.verkoopPrijs >= number1 && artikel.verkoopPrijs <= number2));
+
+    result2.forEach(e => {
+        console.log(`het artikel ${e.artikelNaam} met zijn verkoopprijs €${e.verkoopPrijs} zit tussen de getallen ${number1} en ${number2}`);
     });
 }
 
 function showAveragePrice(){
-    arrArtikelen.forEach(e => {
-        totalPrice = e.verkoopPrijs+totalPrice;
-        amountProducts++;
-    });
+    const arrPrices = arrArtikelen.filter((artikel) => (artikel.verkoopPrijs));
+    console.log(arrPrices)
+    
+    //Tel het aantal producten aan de hand van de keys
+    amountProducts = Object.keys(arrArtikelen).length;
+    //currentvalue is het object dus currentValue.verkoopPrijs is de verkoopprijs
+    totalPrice = arrArtikelen.reduce((accumulator, currentValue) => accumulator + currentValue.verkoopPrijs,totalPrice);
 
     console.log('De gemiddelde verkoopprijs van de '+amountProducts+ ' artikelen bedraagt: '+ (totalPrice/amountProducts));
 }
