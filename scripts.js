@@ -41,7 +41,6 @@ while(artikelNaam != 'stop') {
 inputWoord = prompt("Geef een woord in.");
 showMatchedWords(arrArtikelen);
 
-
 let number1 = Number(prompt('geef een getal in.'));
 let number2 = Number(prompt('geef een tweede getal in.'));
 
@@ -53,25 +52,34 @@ function showMatchedWords(){
 
     const result = arrArtikelen.filter((word) => word.artikelNaam.includes(inputWoord));
 
-    result.forEach(e => {
-        console.log(`${e.artikelNaam} heeft het woord ${inputWoord} in zijn artikelnaam`);
-    });
+    //CHAINEN is gewoon een andere functie oproepen in functie
+    function isMatched(hetObject){
+        if(hetObject.artikelNaam.includes(inputWoord)){
+            console.log(`${hetObject.artikelNaam} heeft het woord ${inputWoord} in zijn artikelnaam`)
+        }
+    }
+
+    arrArtikelen.filter(isMatched);
 }
 
 function showMatchedPriceProducts(){
-
     
     // const result2 = arrArtikelen.filter((artikel) => (artikel.verkoopPrijs >= number1 && artikel.verkoopPrijs <= number2));
-
     // result2.forEach(e => {
-
-
     //     console.log(`het artikel ${e.artikelNaam} met zijn verkoopprijs €${e.verkoopPrijs} zit tussen de getallen ${number1} en ${number2}`);
     // });
+
+    //Probeer de filter() en corEach() method eens  rechtstreeks te chainen met elkaar, ipv. het tussenresultat op te slaan in resultaat2... 
+    function geldigGetal(hetObject){
+        if(hetObject.verkoopPrijs >= number1 && hetObject.verkoopPrijs <= number2){
+            console.log(`het artikel ${hetObject.artikelNaam} met zijn verkoopprijs €${hetObject.verkoopPrijs} zit tussen de getallen ${number1} en ${number2}`);
+        }
+    }
+    
+    arrArtikelen.filter(geldigGetal);
 }
 
 function showAveragePrice(){
-
     //Maam nieuwe array met alleen prices
     const arrPrices = arrArtikelen.map(({ verkoopPrijs}) => (verkoopPrijs));
 
