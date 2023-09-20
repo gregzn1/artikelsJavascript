@@ -85,13 +85,12 @@ function showMatchedPriceProducts(){
 }
 
 function showAveragePrice(){
-    //Maam nieuwe array met alleen prices
-    const arrPrices = arrArtikelen.map(({ verkoopPrijs}) => (verkoopPrijs));
-
     //Tel aantal prices
-    amountProducts = arrPrices.length;
-    //bereken volledig prijs
-    totalPrice = arrPrices.reduce((accumulator, currentValue) => accumulator + currentValue);
+    amountProducts = arrArtikelen.length;
 
+    //bereken volledig prijs
+    //1.neem enkel de verkoop prijs uit de arrArtikelen
+    //2.die word dan opgeteld met de reduce methode 
+    totalPrice = arrArtikelen.map(({ verkoopPrijs}) => (verkoopPrijs)).reduce((accumulator, currentValue) => accumulator + currentValue);
     console.log('De gemiddelde verkoopprijs van de '+amountProducts+ ' artikelen bedraagt: '+ (totalPrice/amountProducts));
 }
