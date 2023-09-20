@@ -39,7 +39,7 @@ while(artikelNaam != 'stop') {
 }
 
 inputWoord = prompt("Geef een woord in.");
-showMatchedWords(arrArtikelen);
+showMatchedWords();
 
 let number1 = Number(prompt('geef een getal in.'));
 let number2 = Number(prompt('geef een tweede getal in.'));
@@ -49,17 +49,22 @@ let number2 = Number(prompt('geef een tweede getal in.'));
 showAveragePrice();
 
 function showMatchedWords(){
+    // const result = arrArtikelen.filter((word) => word.artikelNaam.includes(inputWoord));
 
-    const result = arrArtikelen.filter((word) => word.artikelNaam.includes(inputWoord));
+    // //CHAINEN is gewoon een andere functie oproepen in functie
+    // function isMatched(hetObject){
+    //     if(hetObject.artikelNaam.includes(inputWoord)){
+    //         console.log(`${hetObject.artikelNaam} heeft het woord ${inputWoord} in zijn artikelnaam`)
+    //     }
+    // }
+    //arrArtikelen.filter(isMatched);
 
-    //CHAINEN is gewoon een andere functie oproepen in functie
-    function isMatched(hetObject){
-        if(hetObject.artikelNaam.includes(inputWoord)){
-            console.log(`${hetObject.artikelNaam} heeft het woord ${inputWoord} in zijn artikelnaam`)
-        }
-    }
+    //FOUT! gebruik method chaining in de plaats
 
-    arrArtikelen.filter(isMatched);
+    //method chaining: de methodes aan elkaar hangen net als een ketting: 
+    //meer uitleg over method chaining:https://www.youtube.com/watch?v=8x1fygdWabY&list=PL4cUxeGkcC9i5yvDkJgt60vNVWffpblB7&index=7
+    arrArtikelen.filter(artikel => artikel.artikelNaam.includes(inputWoord)).forEach(artikel => {console.log(`${artikel.artikelNaam} heeft het woord ${inputWoord} in zijn artikelnaam`)})
+
 }
 
 function showMatchedPriceProducts(){
@@ -70,13 +75,13 @@ function showMatchedPriceProducts(){
     // });
 
     //Probeer de filter() en corEach() method eens  rechtstreeks te chainen met elkaar, ipv. het tussenresultat op te slaan in resultaat2... 
-    function geldigGetal(hetObject){
-        if(hetObject.verkoopPrijs >= number1 && hetObject.verkoopPrijs <= number2){
-            console.log(`het artikel ${hetObject.artikelNaam} met zijn verkoopprijs €${hetObject.verkoopPrijs} zit tussen de getallen ${number1} en ${number2}`);
-        }
-    }
+    // function geldigGetal(hetObject){
+    //     if(hetObject.verkoopPrijs >= number1 && hetObject.verkoopPrijs <= number2){
+    //         console.log(`het artikel ${hetObject.artikelNaam} met zijn verkoopprijs €${hetObject.verkoopPrijs} zit tussen de getallen ${number1} en ${number2}`);
+    //     }
+    // }
     
-    arrArtikelen.filter(geldigGetal);
+    arrArtikelen.filter(artikel => (artikel.verkoopPrijs >= number1 && artikel.verkoopPrijs <= number2)).forEach(artikel => {console.log(`het artikel ${artikel.artikelNaam} met zijn verkoopprijs €${artikel.verkoopPrijs} zit tussen de getallen ${number1} en ${number2}`)})
 }
 
 function showAveragePrice(){
@@ -86,7 +91,7 @@ function showAveragePrice(){
     //Tel aantal prices
     amountProducts = arrPrices.length;
     //bereken volledig prijs
-    totalPrice = arrPrices.reduce((accumulator, currentValue) => accumulator + currentValue,0);
+    totalPrice = arrPrices.reduce((accumulator, currentValue) => accumulator + currentValue);
 
     console.log('De gemiddelde verkoopprijs van de '+amountProducts+ ' artikelen bedraagt: '+ (totalPrice/amountProducts));
 }
